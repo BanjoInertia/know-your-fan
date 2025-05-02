@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import Container from "../../components/container/Container";
-import Input from "../../components/input/input";
-import Button from '../../components/button/button';
-import Text from "../../components/text/text";
+import Input from "../../components/input/Input";
+import Button from '../../components/button/Button';
+import Text from "../../components/text/Text";
 import Title from "../../components/title/Title";
 import UserProfileForm from "../userProfileForm/userProfileForm";
 import UserInterestForm from "../userInterestForm/userInterestForm";
@@ -173,9 +173,8 @@ const WelcomeMessage = ({ username, variants }) => (
   </motion.div>
 );
 
-// Component for the action area (input or buttons)
 const ActionArea = ({
-  step, // 'initial', 'welcome', 'profileForm', 'interestForm'
+  step,
   localValue,
   handleChange,
   handleKeyDown,
@@ -191,7 +190,7 @@ const ActionArea = ({
       {step === 'interestForm' ? (
         <MotionButton
           layout
-          key="submitInterestButton" // Changed key
+          key="submitInterestButton"
           variants={inputButtonVariants}
           initial="buttonHidden"
           animate="buttonVisible"
@@ -205,13 +204,13 @@ const ActionArea = ({
           title={!canSubmitInterest ? "Preencha todos os campos obrigatórios" : "Enviar interesses"}
         >
           <motion.span variants={buttonTextVariants} initial="hidden" animate="visible" exit="hidden" style={{ display: 'inline-block' }}>
-            ENVIAR INTERESSES {/* More specific text */}
+            ENVIAR INTERESSES
           </motion.span>
         </MotionButton>
       ) : step === 'profileForm' ? (
         <MotionButton
           layout
-          key="submitProfileButton" // Changed key
+          key="submitProfileButton"
           variants={inputButtonVariants}
           initial="buttonHidden"
           animate="buttonVisible"
@@ -225,7 +224,7 @@ const ActionArea = ({
           title={!canSubmitProfile ? "Preencha todos os campos obrigatórios e selecione um documento" : (isDocumentValidating ? "Validando..." : "Enviar perfil e validar documento")}
         >
           <motion.span variants={buttonTextVariants} initial="hidden" animate="visible" exit="hidden" style={{ display: 'inline-block' }}>
-            {isDocumentValidating ? "ENVIANDO/VALIDANDO..." : "ENVIAR PERFIL"} {/* More specific text */}
+            {isDocumentValidating ? "ENVIANDO/VALIDANDO..." : "ENVIAR PERFIL"}
           </motion.span>
         </MotionButton>
       ) : step === 'welcome' ? (
@@ -245,7 +244,7 @@ const ActionArea = ({
             CONFIRMAR
           </motion.span>
         </MotionButton>
-      ) : step === 'initial' ? ( // Assuming 'initial' is the state for username input
+      ) : step === 'initial' ? (
         <MotionInput
           layout
           key="usernameInput"
