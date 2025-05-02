@@ -12,7 +12,7 @@ import profilePictureTemplate from '../../assets/profile-picture-template.png';
 const MotionContainer = Motion(Container);
 const MotionButton = Motion(Button);
 
-const BACKEND_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+const BACKEND_URL = import.meta.env.VITE_API_URL || 'https://know-your-fan-backend.onrender.com';
 const TARGET_TWITCH_CHANNEL_NAME = 'FURIAtv';
 
 function UserProfileDisplay({ userProfile }) {

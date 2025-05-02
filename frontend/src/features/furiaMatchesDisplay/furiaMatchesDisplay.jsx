@@ -3,7 +3,7 @@ import Container from '../../components/container/Container';
 import Text from '../../components/text/Text';
 import Title from '../../components/title/Title';
 
-const BACKEND_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+const BACKEND_URL = import.meta.env.VITE_API_URL || 'https://know-your-fan-backend.onrender.com';
 
 export const FuriaMatchesDisplay = () => {
     const [matches, setMatches] = useState([]);
