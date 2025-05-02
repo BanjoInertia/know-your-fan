@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { motion as Motion } from 'framer-motion';
 import Container from '../../components/container/Container';
-import Input from '../../components/input/input';
-import Text from '../../components/text/text';  
+import Input from '../../components/input/Input';
+import Text from '../../components/text/Text';  
 import {
     validateEmail,
     validateCpf,
