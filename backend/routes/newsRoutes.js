@@ -1,5 +1,5 @@
 import express from 'express';
-import { scrapeNews } from '../services/scraper';
+import { scrapeNews } from '../services/scraper.js';
 
 const router = express.Router();
 
