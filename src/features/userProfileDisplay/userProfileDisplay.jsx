@@ -1,7 +1,7 @@
 import { motion as Motion, AnimatePresence } from 'framer-motion';
 import Container from '../../components/container/Container';
-import Button from '../../components/button/button';
-import Text from '../../components/text/text';
+import Button from '../../components/button/Button';
+import Text from '../../components/text/Text';
 import Image from '../../components/image/Image';
 import React, { useState, useEffect, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';

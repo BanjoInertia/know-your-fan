@@ -1,8 +1,8 @@
 import { motion as Motion } from 'framer-motion';
 import Container from '../../components/container/Container';
-import Text from '../../components/text/text';
-import Button from '../../components/button/button';
-import Input from '../../components/input/input';
+import Text from '../../components/text/Text';
+import Button from '../../components/button/Button';
+import Input from '../../components/input/Input';
 
 const interestFormVariants = {
     hidden: { opacity: 0, scale: 0.95, y: 20 },

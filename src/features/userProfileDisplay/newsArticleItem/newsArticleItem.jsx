@@ -1,4 +1,4 @@
-import Text from "../../../components/text/text";
+import Text from "../../../components/text/Text";
 import { Motion } from "framer-motion";
 
 export const NewsArticleItem = ({ article, index }) => {

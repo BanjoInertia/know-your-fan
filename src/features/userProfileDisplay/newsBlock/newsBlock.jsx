@@ -1,5 +1,5 @@
 import Container from "../../../components/container/Container";
-import Text from "../../../components/text/text";
+import Text from "../../../components/text/Text";
 import { motion as Motion } from 'framer-motion';
 
 export const NewsBlock = ({ gameName, articles, loading, error }) => {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Container from '../../components/container/Container';
-import Text from '../../components/text/text';
+import Text from '../../components/text/Text';
 import Title from '../../components/title/Title';
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3001';

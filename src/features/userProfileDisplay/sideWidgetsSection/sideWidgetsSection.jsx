@@ -1,6 +1,6 @@
 import Container from "../../../components/container/Container";
 import { InteractiveFuriaLogo } from "../../interactiveFuriaLogo/InteractiveFuriaLogo";
-import { FuriaMatchesDisplay } from "../../furiaMatchesDisplay/FuriaMatchesDisplay";
+import { FuriaMatchesDisplay } from "../../furiaMatchesDisplay/furiaMatchesDisplay";
 
 export const SideWidgetsSection = () => {
     return (
