@@ -1,5 +1,5 @@
 import React from 'react';
-import Text from '../text/text';
+import Text from '../text/Text';
 
 function ThemeSwitcher({ currentTheme, setTheme }) {
 
