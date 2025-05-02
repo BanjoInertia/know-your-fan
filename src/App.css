@@ -1,0 +1,235 @@
+@import url('https://fonts.googleapis.com/css2?family=Delicious+Handrawn&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geologica:wght@100..900&display=swap');
+
+:root {
+	--primary-color: #f1f1f1;
+	--secondary-color: #000;
+	--tertiary-color: #aaa;
+	--quaternary-color: #ebebeb;
+	--font-color: #000;
+	--secondary-font-color: #a0a0a0;
+	--twitch-button-color: #a970ff;
+	--border-color: #ddd;
+	--card-background: #f9f9f9;
+	--shadow-color: rgba(0, 0, 0, 0.1);
+	--logo-text-filter: invert(0);
+}
+
+body[data-theme='dark'] {
+	--primary-color: #1a1a1a;
+	--secondary-color: #fff;
+	--tertiary-color: #555;
+	--quaternary-color: #2c2c2c;
+	--font-color: #fff;
+	--secondary-font-color: #a0a0a0;
+	--twitch-button-color: #a970ff;
+	--border-color: #444;
+	--card-background: #252525;
+	--shadow-color: rgba(255, 255, 255, 0.05);
+	--logo-text-filter: invert(1);
+}
+
+body[data-theme='ocean'] {
+    --primary-color: #e0f7fa;
+    --secondary-color: #00796b;
+    --tertiary-color: #757575;
+    --quaternary-color: #b2ebf2;
+    --font-color: #004d40;
+    --secondary-font-color: #424242;
+   	--twitch-button-color: #a970ff;
+    --border-color: #4db6ac;
+    --card-background: #ffffff;
+    --shadow-color: rgba(0, 121, 107, 0.1);
+    --logo-text-filter: invert(31%) sepia(88%) saturate(2962%) hue-rotate(155deg) brightness(93%) contrast(101%);
+}
+
+body[data-theme='beige'] {
+	--primary-color: #f5f5dc;
+	--secondary-color: #5d4037;
+	--tertiary-color: #c1a78a;
+	--quaternary-color: #fff8e1;
+	--font-color: #5d4037;
+	--secondary-font-color: #795548;
+	--twitch-button-color: #a970ff;
+	--border-color: #c1a78a;
+	--card-background: #fffaf0;
+	--shadow-color: rgba(93, 64, 55, 0.1);
+	--logo-text-filter: invert(25%) sepia(17%) saturate(1524%) hue-rotate(341deg) brightness(93%) contrast(91%);
+}
+
+body[data-theme='forest'] {
+	--primary-color: #2f4f2f;
+	--secondary-color: #e8e4d5;
+	--tertiary-color: #8b4513;
+	--quaternary-color: #556b2f;
+	--font-color: #e8e4d5;
+	--secondary-font-color: #a7b9a1;
+	--twitch-button-color: #a970ff;
+	--border-color: #8b4513;
+	--card-background: #3a5a3a;
+	--shadow-color: rgba(0, 50, 0, 0.2);
+	--logo-text-filter: invert(95%) sepia(8%) saturate(401%) hue-rotate(3deg) brightness(101%) contrast(90%);
+}
+
+body[data-theme='synthwave'] {
+	--primary-color: #1a102c;
+	--secondary-color: #ff00ff;
+	--tertiary-color: #4b3d6b;
+	--quaternary-color: #2c1f4a;
+	--font-color: #afeeee;
+	--secondary-font-color: #7fffd4;
+	--twitch-button-color: #a970ff;
+	--border-color: #00ffff;
+	--card-background: #2c1f4a;
+	--shadow-color: rgba(255, 0, 255, 0.15);
+	--logo-text-filter: invert(13%) sepia(99%) saturate(7493%) hue-rotate(300deg) brightness(99%) contrast(101%);
+}
+
+body[data-theme='solarized-light'] {
+	--primary-color: #fdf6e3;
+	--secondary-color: #657b83;
+	--tertiary-color: #93a1a1;
+	--quaternary-color: #eee8d5;
+	--font-color: #657b83;
+	--secondary-font-color: #586e75;
+	--twitch-button-color: #a970ff;
+	--border-color: #93a1a1;
+	--card-background: #eee8d5;
+	--shadow-color: rgba(147, 161, 161, 0.15);
+	--logo-text-filter: invert(51%) sepia(11%) saturate(665%) hue-rotate(151deg) brightness(91%) contrast(88%);
+}
+
+* {
+	box-sizing: border-box;
+	font-family: 'Geologica', sans-serif;
+}
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+	display: block;
+}
+
+body {
+	line-height: 1;
+}
+
+ol,
+ul {
+	list-style: none;
+}
+
+blockquote,
+q {
+	quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+	content: '';
+	content: none;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
