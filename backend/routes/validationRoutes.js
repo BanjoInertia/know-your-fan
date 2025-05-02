@@ -7,11 +7,6 @@ const router = express.Router();
 router.post('/validate-document', upload.single('documentFile'), async (req, res, next) => {
     console.log("-> POST /api/validate-document received on backend");
 
-    const response = await fetch(`${API_BASE_URL}/api/validate-document`, {
-        method: 'POST',
-        body: formData,
-      });
-
     if (!req.file) {
         console.log("Backend: No file uploaded.");
         return res.status(400).json({ success: false, error: 'Nenhum arquivo de documento enviado.' });
