@@ -1,5 +1,5 @@
 import multer from 'multer';
-import config from './config/index.js';
+import config from '../config/index.js';
 
 // eslint-disable-next-line no-unused-vars
 const errorHandler = (err, req, res, next) => {

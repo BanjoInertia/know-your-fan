@@ -1,5 +1,5 @@
 import express from 'express';
-import upload from './config/multer.js';
+import upload from '../config/multer.js';
 import { analyzeDocument } from '../services/gemini.js';
 
 const router = express.Router();
