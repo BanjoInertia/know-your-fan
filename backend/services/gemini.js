@@ -1,5 +1,5 @@
 import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from '@google/generative-ai';
-import config from '../backend/config/index.js';
+import config from '../config/index.js';
 
 const genAI = new GoogleGenerativeAI(config.geminiApiKey);
 const geminiModel = genAI.getGenerativeModel({ model: "gemini-1.5-pro-latest" });

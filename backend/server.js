@@ -3,7 +3,7 @@ import cors from 'cors';
 import config from './config/index.js';
 import sessionMiddleware from './config/session.js';
 import mainRouter from './routes/index.js';
-import errorHandler from '../middleware/errorHandler.js';
+import errorHandler from './middleware/errorHandler.js';
 
 const app = express();
 

@@ -1,5 +1,5 @@
 import express from 'express';
-import { scrapeFuriaMatches } from '../services/scraper.js';
+import { scrapeFuriaMatches } from './services/scraper.js';
 
 const router = express.Router();
 

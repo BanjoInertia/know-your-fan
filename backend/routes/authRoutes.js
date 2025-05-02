@@ -1,12 +1,12 @@
 import express from 'express';
 import crypto from 'node:crypto';
-import config from '../config/index.js';
+import config from './config/index.js';
 import {
     refreshTwitchToken,
     performTwitchFollowCheck,
     getTwitchUserInfo,
     exchangeCodeForTokens
-} from '../services/twitch.js';
+} from './services/twitch.js';
 
 const router = express.Router();
 
