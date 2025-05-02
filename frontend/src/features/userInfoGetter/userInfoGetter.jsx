@@ -8,8 +8,8 @@ import Text from "../../components/text/Text";
 import Title from "../../components/title/Title";
 import UserProfileForm from "../userProfileForm/userProfileForm";
 import UserInterestForm from "../userInterestForm/userInterestForm";
-import { validateEmail, validateCpf, validateBirthDate, validateCep } from '../../../utils/validation';
-import { VALIDATION_API_URL, parseAnalysis } from '../../../utils/userInfoGetter.utils';
+import { validateEmail, validateCpf, validateBirthDate, validateCep } from '../../../../backend/utils/validation';
+import { VALIDATION_API_URL, parseAnalysis } from '../../../../backend/utils/userInfoGetter.utils';
 
 const MotionContainer = motion(Container);
 const MotionInput = motion(Input);

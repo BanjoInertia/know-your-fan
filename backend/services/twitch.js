@@ -1,5 +1,5 @@
 import axios from 'axios';
-import config from '../config/index.js';
+import config from '../backend/config/index.js';
 
 const TWITCH_API_BASE = 'https://api.twitch.tv/helix';
 const TWITCH_AUTH_BASE = 'https://id.twitch.tv/oauth2';
