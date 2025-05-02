@@ -1,5 +1,5 @@
 import React from 'react';
-import Text from '../../components/text/text';
+import Text from '../text/text';
 
 function ThemeSwitcher({ currentTheme, setTheme }) {
 
@@ -10,7 +10,6 @@ function ThemeSwitcher({ currentTheme, setTheme }) {
   const setForest = () => setTheme('forest');
   const setSynthwave = () => setTheme('synthwave');
   const setSolarizedLight = () => setTheme('solarized-light');
-
 
   const baseButtonStyle = {
     padding: '3px',
