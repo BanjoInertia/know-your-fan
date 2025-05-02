@@ -1,4 +1,4 @@
-export const VALIDATION_API_URL = 'http://localhost:3001/api/validate-document';
+export const VALIDATION_API_URL = 'https://know-your-fan-backend.onrender.com/api/validate-document';
 
 const monthMap = {
     'jan': '01', 'fev': '02', 'mar': '03', 'abr': '04',

@@ -5,21 +5,26 @@ import { analyzeDocument } from '../services/gemini.js';
 const router = express.Router();
 
 router.post('/validate-document', upload.single('documentFile'), async (req, res, next) => {
-    console.log("-> POST /api/validate-document");
+    console.log("-> POST /api/validate-document received on backend");
+
+    const response = await fetch(`${API_BASE_URL}/api/validate-document`, {
+        method: 'POST',
+        body: formData,
+      });
 
     if (!req.file) {
-        console.log("No file uploaded.");
+        console.log("Backend: No file uploaded.");
         return res.status(400).json({ success: false, error: 'Nenhum arquivo de documento enviado.' });
     }
 
     try {
+        console.log("Backend: Analyzing document...");
         const analysisResult = await analyzeDocument(req.file.buffer, req.file.mimetype);
-        console.log("Document analysis successful.");
+        console.log("Backend: Document analysis successful.");
         res.json({ success: true, analysis: analysisResult });
 
-    } catch (error)
-    {
-        console.error("Error in /validate-document route:", error.message);
+    } catch (error) {
+        console.error("Backend: Error in /validate-document route:", error.message);
         next(error);
     }
 });

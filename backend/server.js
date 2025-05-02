@@ -27,7 +27,7 @@ app.use((req, res) => {
 app.use(errorHandler);
 
 app.listen(config.port, () => {
-    console.log(`Backend server running on http://localhost:${config.port}`);
+    console.log(`Backend server running on https://know-your-fan-backend.onrender.com:${config.port}`);
     console.log(`Environment: ${config.nodeEnv}`);
     console.log(`Accepting requests from: ${config.frontendUrl || 'Not Specified (CORS issues likely)'}`);
     if (config.twitch.mockApi) {

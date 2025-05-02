@@ -7,7 +7,6 @@ import validationRoutes from './validationRoutes.js';
 const router = express.Router();
 
 router.use('/auth', authRoutes);
-
 router.use('/api', matchRoutes);
 router.use('/api', newsRoutes);
 router.use('/api', validationRoutes);
