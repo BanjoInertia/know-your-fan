@@ -160,7 +160,7 @@ const scrapeNewsListOrPage = async (url, gameKeyword) => {
 
                 if (link && link.startsWith('/')) {
                     try {
-                        const baseUrl = new URL(url);
+                        const baseUrl = import.meta.env.VITE_API_URL;
                         link = `${baseUrl.protocol}//${baseUrl.hostname}${link}`;
                     } catch { link = undefined; }
                 } else if (link && !link.startsWith('http')) { link = undefined; }
