@@ -18,6 +18,9 @@ const IS_PRODUCTION = NODE_ENV === 'production';
 const MOCK_TWITCH_FOLLOW_API = MOCK_TWITCH_FOLLOW_API_ENV.toLowerCase() === 'true';
 const MOCK_FOLLOW_RESULT = MOCK_FOLLOW_RESULT_ENV.toLowerCase() === 'true';
 
+const ALLOWED_ORIGINS_STRING = process.env.ALLOWED_ORIGINS || '';
+const ALLOWED_ORIGINS_ARRAY = ALLOWED_ORIGINS_STRING.split(',').map(origin => origin.trim()).filter(Boolean);
+
 if (!GEMINI_API_KEY) {
     console.error("FATAL ERROR: GEMINI_API_KEY is not defined in .env file.");
     process.exit(1);
@@ -58,4 +61,5 @@ export default {
     sessionSecret: SESSION_SECRET,
     nodeEnv: NODE_ENV,
     isProduction: IS_PRODUCTION,
+    allowedOrigins: ALLOWED_ORIGINS_ARRAY,
 };
