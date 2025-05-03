@@ -1,7 +1,7 @@
 import axios from 'axios';
 import * as cheerio from 'cheerio';
 
-const scrapeSingleArticlePageForNews = async (articleUrl, sourceHostname) => {
+export const scrapeSingleArticlePageForNews = async (articleUrl, sourceHostname) => {
     console.log(`[News Scraper Service - Step 2] Fetching individual article: ${articleUrl}`);
     try {
         const { data: articleHtml } = await axios.get(articleUrl, {
@@ -95,7 +95,7 @@ const scrapeSingleArticlePageForNews = async (articleUrl, sourceHostname) => {
     }
 };
 
-const scrapeNewsListOrPage = async (url, gameKeyword) => {
+export const scrapeNewsListOrPage = async (url, gameKeyword) => {
     let initialArticlesData = [];
     let finalArticles = [];
     const siteHostname = new URL(url).hostname;
@@ -211,7 +211,7 @@ const scrapeNewsListOrPage = async (url, gameKeyword) => {
     return finalArticles;
 };
 
-const parseSortableDate = (dateString) => {
+export const parseSortableDate = (dateString) => {
     if (!dateString || typeof dateString !== 'string') return null;
     const monthsPt = {
         'jan': 0, 'janeiro': 0, 'fev': 1, 'fevereiro': 1, 'mar': 2, 'março': 2,
@@ -241,7 +241,7 @@ const parseSortableDate = (dateString) => {
     console.warn(`[Date Sort] Could not parse date string: "${dateString}"`); return null;
 };
 
-async function scrapeNews(game) {
+export async function scrapeNews(game) {
     const sanitizedGame = game.trim().toLowerCase();
     const team = "furia";
     const targetUrls = ['https://draft5.gg/', 'https://www.thespike.gg/br/valorant/news'];
@@ -279,7 +279,7 @@ async function scrapeNews(game) {
     return finalArticles;
 }
 
-async function scrapeFuriaMatches() {
+export async function scrapeFuriaMatches() {
     const targetUrl = 'https://www.vlr.gg/team/matches/2406/furia/?group=completed';
     const baseVlrUrl = 'https://www.vlr.gg';
     const MAX_MATCHES_TO_SCRAPE = 4;
@@ -424,7 +424,3 @@ async function scrapeFuriaMatches() {
         throw scrapeError;
     }
 }
-
-
-// Exporta as funções do serviço
-export { scrapeNews, scrapeFuriaMatches };
