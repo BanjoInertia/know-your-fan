@@ -10,7 +10,6 @@ import {
 
 const router = express.Router();
 
-// --- /auth/twitch ---
 router.get('/twitch', (req, res, next) => {
     console.log("-> GET /auth/twitch");
     try {

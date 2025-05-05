@@ -425,6 +425,4 @@ async function scrapeFuriaMatches() {
     }
 }
 
-
-// Exporta as funções do serviço
 export { scrapeNews, scrapeFuriaMatches };

@@ -72,7 +72,6 @@ export const ProfileInfoBlock = ({ profileData, isFollowingTargetChannel, checki
                     )}
                 </Container>
 
-                {/* User Details and Follow Status */}
                 <Container $flex $flexDirection="column" $gap="0.2rem" $width="100%" $justifyContent="stretch" $alignItems="flex-start" $padding="2rem" $tabletPadding="0.5rem">
                     <Text $mobileFontSize="1.3rem" $fontSize="1.5rem" $textTransform="uppercase" >USUÁRIO: {profileData.userName || 'N/A'}</Text>
                     <Text $mobileFontSize="1.3rem" $fontSize="1.5rem" $textTransform="capitalize" >NOME: {profileData.name || 'N/A'}</Text>
