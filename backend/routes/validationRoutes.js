@@ -13,10 +13,21 @@ router.post('/validate-document', upload.single('documentFile'), async (req, res
     }
 
     try {
-        console.log("Backend: Analyzing document...");
-        const analysisResult = await analyzeDocument(req.file.buffer, req.file.mimetype);
-        console.log("Backend: Document analysis successful.");
-        res.json({ success: true, analysis: analysisResult });
+        console.log("VALIDATION_ROUTE: Recebido request para /api/validate-document");
+        console.log("VALIDATION_ROUTE: Chamando analyzeDocument...");
+
+        console.log("VALIDATION_ROUTE: req.file details:", {
+            originalname: req.file.originalname,
+            mimetype: req.file.mimetype,
+            size: req.file.size
+        });
+
+        const fileBuffer = req.file.buffer;
+        const mimeType = req.file.mimetype;
+
+        const analysisResult = await analyzeDocument(fileBuffer, mimeType);
+        console.log("VALIDATION_ROUTE: analyzeDocument retornou.");
+        res.json({ analysis: analysisResult });
 
     } catch (error) {
         console.error("Backend: Error in /validate-document route:", error.message);

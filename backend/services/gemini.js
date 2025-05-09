@@ -28,6 +28,7 @@ function bufferToGenerativePart(buffer, mimeType) {
 }
 
 async function analyzeDocument(fileBuffer, mimeType) {
+    console.log("GEMINI_SERVICE: analyzeDocument iniciado.");
     try {
         const imagePart = bufferToGenerativePart(fileBuffer, mimeType);
 
@@ -53,12 +54,13 @@ async function analyzeDocument(fileBuffer, mimeType) {
           Observações Visuais: [Comentários]
         `;
 
-        console.log("Sending request to Gemini API...");
+        console.log("GEMINI_SERVICE: Enviando request para Gemini API...");
         const result = await geminiModel.generateContent({
             contents: [{ role: "user", parts: [imagePart, { text: prompt }] }],
             generationConfig: geminiGenerationConfig,
             safetySettings: geminiSafetySettings,
         });
+        console.log("GEMINI_SERVICE: Resposta da Gemini API recebida.");
 
         const responseText = result?.response?.text?.();
         if (!responseText) {
@@ -69,7 +71,7 @@ async function analyzeDocument(fileBuffer, mimeType) {
         return responseText;
 
     } catch (error) {
-        console.error("Error during Gemini API call:", error);
+        console.error("GEMINI_SERVICE: Erro durante chamada à Gemini API:", error);
         let errorMessage = 'Failed to analyze document via Gemini.';
         let statusCode = 500;
 
