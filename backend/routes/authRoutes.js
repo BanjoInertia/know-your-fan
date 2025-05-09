@@ -2,10 +2,8 @@ import express from 'express';
 import crypto from 'node:crypto';
 import config from '../config/index.js';
 import {
-    refreshTwitchToken,
-    performTwitchFollowCheck,
-    getTwitchUserInfo,
-    exchangeCodeForTokens
+    exchangeCodeForTokens,
+    getTwitchUserInfo
 } from '../services/twitch.js';
 
 const router = express.Router();
@@ -13,78 +11,68 @@ const router = express.Router();
 router.get('/twitch', (req, res, next) => {
     console.log("-> GET /auth/twitch");
     try {
-        const twitchScopes = 'user:read:email user:read:follows';
         const csrfState = crypto.randomBytes(16).toString('hex');
-        req.session.oauth_state_csrf = csrfState;
+        req.session.twitch_oauth_csrf_state = csrfState;
 
         req.session.save(err => {
             if (err) {
-                console.error("Error saving session before Twitch auth redirect:", err);
-                return res.status(500).send("Failed to initiate Twitch login. Please try again.");
+                console.error("[Auth /twitch] Error saving session before Twitch redirect:", err);
+                return res.status(500).send("Failed to initiate Twitch login. Session save error.");
             }
 
-            const authorizationUrl = new URL('https://id.twitch.tv/oauth2/authorize');
-            authorizationUrl.searchParams.append('client_id', config.twitch.clientId);
-            authorizationUrl.searchParams.append('redirect_uri', config.twitch.redirectUri);
-            authorizationUrl.searchParams.append('response_type', 'code');
-            authorizationUrl.searchParams.append('scope', twitchScopes);
-            authorizationUrl.searchParams.append('state', csrfState);
+            const twitchAuthUrl = new URL('https://id.twitch.tv/oauth2/authorize');
+            twitchAuthUrl.searchParams.append('client_id', config.twitch.clientId);
+            twitchAuthUrl.searchParams.append('redirect_uri', config.twitch.redirectUri);
+            twitchAuthUrl.searchParams.append('response_type', 'code');
+            twitchAuthUrl.searchParams.append('scope', 'user:read:email user:read:follows');
+            twitchAuthUrl.searchParams.append('state', csrfState);
 
-            console.log(`Redirecting to Twitch for authorization with CSRF state: ${csrfState} and return path in session: ${originalFrontendPath}`);
-            res.redirect(authorizationUrl.toString());
+            console.log(`[Auth /twitch] Redirecting to Twitch with CSRF state: ${csrfState}`);
+            res.redirect(twitchAuthUrl.toString());
         });
+
     } catch (error) {
-        console.error("Unexpected error in /auth/twitch route:", error);
+        console.error("[Auth /twitch] Unexpected error:", error);
         next(error);
     }
 });
 
 router.get('/twitch/callback', async (req, res, next) => {
-    console.log("-> GET /auth/twitch/callback");
-    console.log("Callback Query:", req.query);
-    const { code, state: receivedCsrfState, error: twitchError, error_description } = req.query;
-    const savedCsrfState = req.session?.oauth_state_csrf;
+    console.log("-> GET /auth/twitch/callback (Backend)");
+    console.log("[Auth Callback] Query params received from Twitch:", req.query);
 
-    const frontendReturnPath = '/profile';
+    const { code, state: receivedQueryState, error: twitchError, error_description } = req.query;
+    const savedSessionCsrfState = req.session?.twitch_oauth_csrf_state;
 
     if (req.session) {
-        req.session.oauth_state_csrf = null;
+        req.session.twitch_oauth_csrf_state = null;
     }
+
+    const frontendProfileUrl = new URL(config.frontendUrl);
+    frontendProfileUrl.pathname = '/profile';
 
     if (twitchError) {
-        console.error(`Twitch Auth Error (Callback): ${twitchError} - ${error_description}`);
-        const errorRedirectUrl = new URL(config.frontendUrl);
-        errorRedirectUrl.pathname = frontendReturnPath;
-        errorRedirectUrl.searchParams.append('twitch_error', encodeURIComponent(error_description || twitchError));
-        return res.redirect(errorRedirectUrl.toString());
+        console.error(`[Auth Callback] Error from Twitch: ${twitchError} - ${error_description}`);
+        frontendProfileUrl.searchParams.append('twitch_error', encodeURIComponent(error_description || twitchError));
+        return req.session.save(() => res.redirect(frontendProfileUrl.toString()));
     }
 
-    if (!receivedCsrfState || !savedCsrfState || receivedCsrfState !== savedCsrfState) {
-        console.error('Invalid CSRF state parameter. Received:', receivedCsrfState, "Expected:", savedCsrfState);
-        const errorRedirectUrl = new URL(config.frontendUrl);
-        errorRedirectUrl.pathname = frontendReturnPath;
-        errorRedirectUrl.searchParams.append('twitch_error', 'invalid_state');
-        return req.session.save(err => {
-            if (err) console.error("Error saving session after clearing invalid state:", err);
-            res.redirect(errorRedirectUrl.toString());
-        });
+    if (!receivedQueryState || !savedSessionCsrfState || receivedQueryState !== savedSessionCsrfState) {
+        console.error('[Auth Callback] Invalid CSRF state. Received from Twitch:', receivedQueryState, "Expected from session:", savedSessionCsrfState);
+        frontendProfileUrl.searchParams.append('twitch_error', 'invalid_state');
+        return req.session.save(() => res.redirect(frontendProfileUrl.toString()));
     }
 
     if (!code) {
-        console.error('Missing authorization code in Twitch callback.');
-        const errorRedirectUrl = new URL(config.frontendUrl);
-        errorRedirectUrl.pathname = frontendReturnPath;
-        errorRedirectUrl.searchParams.append('twitch_error', 'missing_code');
-        return req.session.save(err => {
-            if (err) console.error("Error saving session after missing code:", err);
-            res.redirect(errorRedirectUrl.toString());
-        });
+        console.error('[Auth Callback] Missing authorization code.');
+        frontendProfileUrl.searchParams.append('twitch_error', 'missing_code');
+        return req.session.save(() => res.redirect(frontendProfileUrl.toString()));
     }
-    console.log("CSRF State check passed. Proceeding...");
+
+    console.log("[Auth Callback] CSRF state check passed. Proceeding to exchange code for tokens.");
 
     try {
         const tokens = await exchangeCodeForTokens(code);
-
         const twitchUser = await getTwitchUserInfo(tokens.access_token);
 
         req.session.twitchTokens = tokens;
@@ -92,47 +80,32 @@ router.get('/twitch/callback', async (req, res, next) => {
         req.session.twitchLogin = twitchUser.login;
         req.session.twitchAvatarUrl = twitchUser.profile_image_url;
 
+        console.log(`[Auth Callback] Twitch user info (${twitchUser.login}, ID: ${twitchUser.id}) saved to session.`);
+
         req.session.save(err => {
             if (err) {
-                console.error("----- FATAL ERROR: Failed to save session in /auth/twitch/callback -----", err);
-                const errorRedirectUrl = new URL(config.frontendUrl);
-                errorRedirectUrl.pathname = frontendReturnPath;
-                errorRedirectUrl.searchParams.append('twitch_error', 'session_save_failed');
-                return res.redirect(errorRedirectUrl.toString());
+                console.error("[Auth Callback] FATAL: Error saving session after fetching Twitch data:", err);
+                frontendProfileUrl.searchParams.append('twitch_error', 'session_save_failed');
+                return res.redirect(frontendProfileUrl.toString());
             }
 
-            console.log(`Session SAVED successfully. SID: ${req.sessionID}`);
-            console.log("Preparing SUCCESS redirect to Frontend...");
-
-            const redirectUrl = new URL(config.frontendUrl);
-            redirectUrl.pathname = frontendReturnPath;
-
-            redirectUrl.searchParams.append('twitch_linked', 'true');
-            redirectUrl.searchParams.append('twitch_id', twitchUser.id);
-            redirectUrl.searchParams.append('twitch_login', twitchUser.login);
+            frontendProfileUrl.searchParams.append('twitch_linked', 'true');
+            frontendProfileUrl.searchParams.append('twitch_id', twitchUser.id);
+            frontendProfileUrl.searchParams.append('twitch_login', twitchUser.login);
             if (twitchUser.profile_image_url) {
-                redirectUrl.searchParams.append('twitch_avatar_url', twitchUser.profile_image_url);
+                frontendProfileUrl.searchParams.append('twitch_avatar_url', encodeURIComponent(twitchUser.profile_image_url));
             }
-            res.redirect(redirectUrl.toString());
-            console.log("----- TWITCH CALLBACK SUCCESS REDIRECT SENT -----");
+
+            console.log(`[Auth Callback] Successfully processed. Redirecting to: ${frontendProfileUrl.toString()}`);
+            res.redirect(frontendProfileUrl.toString());
         });
 
     } catch (serviceError) {
-        console.error("----- ERROR in Twitch Callback TRY block (from Service) -----");
-        console.error("Error details:", serviceError.message, "Status:", serviceError.statusCode);
-        const errorMessage = serviceError.message || 'twitch_callback_failed';
-
-        const errorRedirectUrl = new URL(config.frontendUrl);
-        errorRedirectUrl.pathname = frontendReturnPath;
-        errorRedirectUrl.searchParams.append('twitch_error', encodeURIComponent(errorMessage));
-
-        req.session.save(saveErr => {
-            if (saveErr) console.error("Error saving session during error handling in callback:", saveErr);
-            res.redirect(errorRedirectUrl.toString());
-            console.log("----- TWITCH CALLBACK ERROR REDIRECT SENT TO:", errorRedirectUrl.toString(), "-----");
-        });
+        console.error("[Auth Callback] Error during token exchange or fetching user info:", serviceError.message, "Status:", serviceError.statusCode);
+        frontendProfileUrl.searchParams.append('twitch_error', encodeURIComponent(serviceError.message || 'twitch_processing_failed'));
+        req.session.save(() => res.redirect(frontendProfileUrl.toString()));
     }
-});
+}); 
 
 router.get('/check-twitch-follow', async (req, res, next) => {
     console.log("-> GET /api/check-twitch-follow");

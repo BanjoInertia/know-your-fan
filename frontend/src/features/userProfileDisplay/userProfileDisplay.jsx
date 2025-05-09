@@ -28,10 +28,10 @@ function UserProfileDisplay({ userProfile }) {
 
     const handleTwitchLogin = () => {
         const BACKEND_URL = import.meta.env.VITE_API_BACKEND_URL;
-
+        
         const authUrl = `${BACKEND_URL}/auth/twitch`;
         console.log("[Frontend Auth] Redirecting to Twitch Auth via Backend URL:", authUrl);
-
+        
         window.location.href = authUrl;
     };
 
