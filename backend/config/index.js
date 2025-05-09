@@ -40,7 +40,7 @@ if (SESSION_SECRET === 'fallback_secret_please_change') {
 if (MOCK_TWITCH_FOLLOW_API) {
     console.warn("***********************************************************");
     console.warn("*** WARNING: Twitch follow API is being MOCKED!         ***");
-    console.warn(`*** Mocked Follow Result: ${MOCK_FOLLOW_RESULT}                        ***`);
+    console.warn(`*** Mocked Follow Result: ${MOCK_FOLLOW_RESULT}         ***`);
     console.warn("***********************************************************");
 }
 
