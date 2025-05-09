@@ -55,7 +55,7 @@ function UserInterestForm({
                 <Container $flex $flexDirection="row" $gap="1rem" $width="100%" $alignItems="flex-start">
                     <Container $flex $flexDirection="column" $gap="0.25rem" $flexN="1">
                         <label htmlFor="form-knew-furia" style={{ display: 'block' }}>
-                            <Text  $fontSize="0.9rem" $fontWeight="500" $margin="0">
+                            <Text  $fontSize="0.8rem" $fontWeight="500" $margin="0">
                                 Já conhecia a FURIA?
                             </Text>
                         </label>
@@ -85,7 +85,7 @@ function UserInterestForm({
 
                     <Container $flex $flexDirection="column" $gap="0.25rem" $flexN="1">
                         <label htmlFor="form-game" style={{ display: 'block' }}>
-                            <Text  $fontSize="0.9rem" $fontWeight="500" $margin="0">
+                            <Text  $fontSize="0.8rem" $fontWeight="500" $margin="0">
                                 Jogo Favorito
                             </Text>
                         </label>
@@ -100,7 +100,7 @@ function UserInterestForm({
 
                     <Container $flex $flexDirection="column" $gap="0.25rem" $flexN="1">
                         <label htmlFor="form-platform" style={{ display: 'block' }}>
-                            <Text  $fontSize="0.9rem" $fontWeight="500" $margin="0">
+                            <Text  $fontSize="0.8rem" $fontWeight="500" $margin="0">
                                 Plataforma Principal
                             </Text>
                         </label>
@@ -120,7 +120,7 @@ function UserInterestForm({
 
                     <Container $flex $flexDirection="column" $gap="0.25rem" $flexN="1">
                         <label htmlFor="form-attended-event" style={{ display: 'block' }}>
-                            <Text  $fontSize="0.9rem" $fontWeight="500" $margin="0">
+                            <Text  $fontSize="0.8rem" $fontWeight="500" $margin="0">
                                 Já foi a algum evento de eSports?
                             </Text>
                         </label>
@@ -150,7 +150,7 @@ function UserInterestForm({
 
                     <Container $flex $flexDirection="column" $gap="0.25rem" $flexN="1">
                         <label htmlFor="form-event-name" style={{ display: 'block' }}>
-                            <Text  $fontSize="0.9rem" $fontWeight="500" $margin="0">
+                            <Text  $fontSize="0.8rem" $fontWeight="500" $margin="0">
                                 Qual evento? (Opcional)
                             </Text>
                         </label>
@@ -171,7 +171,7 @@ function UserInterestForm({
 
                     <Container $flex $flexDirection="column" $gap="0.25rem" $flexN="1">
                         <label htmlFor="form-product" style={{ display: 'block' }}>
-                            <Text  $fontSize="0.9rem" $fontWeight="500" $margin="0">
+                            <Text  $fontSize="0.8rem" $fontWeight="500" $margin="0">
                                 Você já comprou algum produto da FURIA? (Opcional)
                             </Text>
                         </label>
@@ -186,7 +186,7 @@ function UserInterestForm({
 
                     <Container $flex $flexDirection="column" $gap="0.25rem" $flexN="1">
                         <label htmlFor="form-favorite-player" style={{ display: 'block' }}>
-                            <Text  $fontSize="0.9rem" $fontWeight="500" $margin="0">
+                            <Text  $fontSize="0.8rem" $fontWeight="500" $margin="0">
                                 Qual seu jogador favorito da FURIA? (Opcional)
                             </Text>
                         </label>
@@ -206,7 +206,7 @@ function UserInterestForm({
                 <Container $flex $flexDirection="row" $gap="1rem" $width="100%" $alignItems="flex-start">
                     <Container $flex $flexDirection="column" $gap="0.25rem" $flexN="1">
                         <label htmlFor="form-first-contact" style={{ display: 'block' }}>
-                            <Text  $fontSize="0.9rem" $fontWeight="500" $margin="0">
+                            <Text  $fontSize="0.8rem" $fontWeight="500" $margin="0">
                                 Qual foi o seu primeiro contato com a FURIA? (Opcional) 
                             </Text>
                         </label>
@@ -221,7 +221,7 @@ function UserInterestForm({
 
                     <Container $flex $flexDirection="column" $gap="0.25rem" $flexN="1">
                         <label htmlFor="form-time-following" style={{ display: 'block' }}>
-                            <Text  $fontSize="0.9rem" $fontWeight="500" $margin="0">
+                            <Text  $fontSize="0.8rem" $fontWeight="500" $margin="0">
                                 Quanto tempo acompanha a FURIA? (Opcional)
                             </Text>
                         </label>
