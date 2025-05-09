@@ -27,7 +27,12 @@ function UserProfileDisplay({ userProfile }) {
     const [newsError, setNewsError] = useState(null);
 
     const handleTwitchLogin = () => {
-        window.location.href = `${BACKEND_URL}/auth/twitch`;
+        const BACKEND_URL = import.meta.env.VITE_API_BACKEND_URL;
+
+        const authUrl = `${BACKEND_URL}/auth/twitch`;
+        console.log("[Frontend Auth] Redirecting to Twitch Auth via Backend URL:", authUrl);
+
+        window.location.href = authUrl;
     };
 
     const checkFollowStatus = useCallback(async () => {
