@@ -1,6 +1,12 @@
 import 'dotenv/config';
 import process from 'node:process';
 
+console.log("--- Variáveis de Ambiente Carregadas (do .env global) ---");
+console.log("GEMINI_API_KEY_FROM_ENV:", process.env.GEMINI_API_KEY);
+console.log("PORT_FROM_ENV:", process.env.PORT);
+console.log("FRONTEND_URL_FROM_ENV:", process.env.FRONTEND_URL);
+console.log("-------------------------------------------------------");
+
 const {
     PORT = 3001,
     GEMINI_API_KEY,
@@ -8,10 +14,11 @@ const {
     TWITCH_CLIENT_ID,
     TWITCH_CLIENT_SECRET,
     TWITCH_REDIRECT_URI,
-    SESSION_SECRET = 'fallback_secret_please_change',
+    SESSION_SECRET = 'fallback_secret_backend_default',
     NODE_ENV = 'development',
     MOCK_TWITCH_FOLLOW_API: MOCK_TWITCH_FOLLOW_API_ENV = 'false',
-    MOCK_FOLLOW_RESULT: MOCK_FOLLOW_RESULT_ENV = 'false'
+    MOCK_FOLLOW_RESULT: MOCK_FOLLOW_RESULT_ENV = 'false',
+    NEWS_API_KEY
 } = process.env;
 
 const IS_PRODUCTION = NODE_ENV === 'production';
@@ -58,4 +65,5 @@ export default {
     sessionSecret: SESSION_SECRET,
     nodeEnv: NODE_ENV,
     isProduction: IS_PRODUCTION,
+    newsApiKey: NEWS_API_KEY,
 };

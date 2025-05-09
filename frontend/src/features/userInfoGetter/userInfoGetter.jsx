@@ -9,7 +9,10 @@ import Title from "../../components/title/Title";
 import UserProfileForm from "../userProfileForm/userProfileForm";
 import UserInterestForm from "../userInterestForm/userInterestForm";
 import { validateEmail, validateCpf, validateBirthDate, validateCep } from '../../../../backend/utils/validation';
-import { VALIDATION_API_URL, parseAnalysis } from '../../../../backend/utils/userInfoGetter.utils';
+import {  parseAnalysis } from '../../../../backend/utils/userInfoGetter.utils';
+
+const API_BASE_URL = import.meta.env.VITE_API_BACKEND_URL;
+const validationUrl = `${API_BASE_URL}/api/validate-document`;
 
 const MotionContainer = motion(Container);
 const MotionInput = motion(Input);
@@ -412,10 +415,10 @@ function UserInfoGetter() {
 
 
     try {
-      console.log(`Sending data to backend: ${VALIDATION_API_URL}`);
-      const response = await fetch(VALIDATION_API_URL, {
-        method: 'POST',
-        body: formData,
+      console.log(`Sending data to backend: ${validationUrl}`);
+      const response = await fetch(validationUrl, {
+          method: 'POST',
+          body: formData,
       });
 
       if (!response.ok) {

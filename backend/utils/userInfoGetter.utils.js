@@ -1,4 +1,5 @@
-export const VALIDATION_API_URL = 'https://know-your-fan-backend.onrender.com/api/validate-document';
+const API_BASE_URL = import.meta.env.VITE_API_BACKEND_URL;
+export const VALIDATION_API_URL = `${API_BASE_URL}/api/validate-document`;
 
 const monthMap = {
     'jan': '01', 'fev': '02', 'mar': '03', 'abr': '04',

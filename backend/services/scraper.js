@@ -138,8 +138,14 @@ export const scrapeNewsListOrPage = async (url, gameKeyword) => {
 
             const item = $(element);
             const itemText = item.text().toLowerCase();
+            const potentialTitle = item.find(titleSelector).first().text().trim().toLowerCase();
+
+            console.log(`[News Scraper - Item ${index}] Raw Text: "${itemText.substring(0, 100)}...", Potential Title: "${potentialTitle}"`);
+            console.log(`[News Scraper - Item ${index}] Checking for team: "${teamKeyword}", game: "${gameKeyword}"`);
 
             if (itemText.includes(teamKeyword) && itemText.includes(gameKeyword)) {
+                console.log(`[News Scraper - Item ${index}] MATCHED KEYWORDS!`);
+
                 let title = item.find(titleSelector).first().text().trim();
                 let link = null;
 
@@ -160,15 +166,23 @@ export const scrapeNewsListOrPage = async (url, gameKeyword) => {
 
                 if (link && link.startsWith('/')) {
                     try {
-                        const baseUrl = import.meta.env.VITE_API_URL;
-                        link = `${baseUrl.protocol}//${baseUrl.hostname}${link}`;
-                    } catch { link = undefined; }
-                } else if (link && !link.startsWith('http')) { link = undefined; }
+                        const siteUrl = new URL(url);
+                        link = `${siteUrl.protocol}//${siteUrl.hostname}${link}`;
+                    } catch (e) {
+                        console.error(`[News Scraper Service - Step 1] Error creating absolute URL for ${link} from base ${url}:`, e);
+                        link = undefined;
+                    }
+                } else if (link && !link.startsWith('http')) {
+                    console.warn(`[News Scraper Service - Step 1] Link '${link}' is not relative and not absolute http(s). Marking as undefined.`);
+                    link = undefined;
+                }
 
                 if (link && !initialArticlesData.some(a => a.url === link)) {
                     console.log(`[News Scraper Service - Step 1] Found relevant list item (${siteHostname}): Title: ${title.substring(0, 50)}... URL: ${link}`);
                     initialArticlesData.push({ title: (title === "Título Indisponível" ? null : title), url: link, source: { name: siteHostname } });
                 }
+            } else {
+                console.log(`[News Scraper - Item ${index}] Did NOT match keywords.`);
             }
         });
 

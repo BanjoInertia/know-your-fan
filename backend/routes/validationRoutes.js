@@ -27,7 +27,7 @@ router.post('/validate-document', upload.single('documentFile'), async (req, res
 
         const analysisResult = await analyzeDocument(fileBuffer, mimeType);
         console.log("VALIDATION_ROUTE: analyzeDocument retornou.");
-        res.json({ analysis: analysisResult });
+        res.json({ success: true, analysis: analysisResult });
 
     } catch (error) {
         console.error("Backend: Error in /validate-document route:", error.message);

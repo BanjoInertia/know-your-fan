@@ -7,8 +7,20 @@ import errorHandler from './middleware/errorHandler.js';
 
 const app = express();
 
+const allowedOrigins = [
+    config.frontendUrl,
+    'http://localhost:5173'
+];
+
 const corsOptions = {
-    origin: config.frontendUrl,
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            console.warn(`CORS: Origin '${origin}' not allowed.`);
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     credentials: true,
     optionsSuccessStatus: 200
 };
@@ -27,9 +39,9 @@ app.use((req, res) => {
 app.use(errorHandler);
 
 app.listen(config.port, () => {
-    console.log(`Backend server running on https://know-your-fan-backend.onrender.com:${config.port}`);
+    console.log(`Backend server running on http://localhost:${config.port}`);
     console.log(`Environment: ${config.nodeEnv}`);
-    console.log(`Accepting requests from: ${config.frontendUrl || 'Not Specified (CORS issues likely)'}`);
+    console.log(`CORS: Allowing requests from: ${allowedOrigins.join(', ')}`);
     if (config.twitch.mockApi) {
         console.log("--- TWITCH API MOCKING IS ENABLED ---");
     }

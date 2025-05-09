@@ -2,7 +2,7 @@ import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from '@google/ge
 import config from '../config/index.js';
 
 const genAI = new GoogleGenerativeAI(config.geminiApiKey);
-const geminiModel = genAI.getGenerativeModel({ model: "gemini-1.5-pro-latest" });
+const geminiModel = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
 
 const geminiGenerationConfig = {
     temperature: 0.2,
