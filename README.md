@@ -54,7 +54,7 @@ Siga os passos abaixo para configurar e executar o projeto localmente:
 
 **2. Clonar o Repositório:**
 ```bash
-git clone https://github.com/BanjoInertia/know-your-fan
+git clone -b versao-limpa-finalizado https://github.com/BanjoInertia/know-your-fan
 
 cd know-your-fan
 
